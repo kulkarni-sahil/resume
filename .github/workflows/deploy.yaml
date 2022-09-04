@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.md'
+      - '**.yaml'
 
 # Required to get the ID Token that will be used for OIDC
 permissions:
