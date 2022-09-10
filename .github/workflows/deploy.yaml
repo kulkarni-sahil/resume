@@ -33,7 +33,7 @@ jobs:
 
     - name: Copy files to the test website with the AWS CLI
       run: |
-        rm -rf .github/* .gitignore README.md 
+        rm -rf .git/* .github/* .gitignore README.md 
         aws s3 sync . ${{ secrets.BUCKET_URI }}
 
     - name: Invalidate cloudfront cache
