@@ -33,8 +33,10 @@ jobs:
 
     - name: Copy files to the test website with the AWS CLI
       run: |
-        aws s3 sync . s3://sahil-kulkarni-resume-2022-09
+        rm -rf .github/* .gitignore README.md 
+        aws s3 sync . ${{ secrets.BUCKET_URI }}
 
     - name: Invalidate cloudfront cache
       run : |
-        aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }} --paths "/*"
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.ROOT_DOMAIN_DISTRIBUTION_ID }} --paths "/*"
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.SUB_DOMAIN_DISTRIBUTION_ID }} --paths "/*"
