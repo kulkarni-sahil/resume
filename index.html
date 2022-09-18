@@ -15,7 +15,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top">
+    <body id="page-top" onload="get_visitor_count()">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">
@@ -51,8 +51,32 @@
                         Expertise in "Cloud Cost Management And Optimization" and developing cloud native applications. <br>
                         Developed and Architected solutions in AWS and GCP while collaborating with cross-functional teams. <br>
                         Python is the programming language of choice. <br>
-                        Serverless for everyone!! <br>
+                        Serverless for everyone!!<br>
                     </p>
+
+                    <p class="lead mb-5" id="visitor-count-message"></p>
+
+                    <script>
+                        function display_visitor_count(visitor_count) {
+                            let html_to_add = 'Visited by <span class="text-primary"> ' + visitor_count + ' </span> humans around the globe'
+                            console.log(html_to_add)
+                            document.getElementById("visitor-count-message").innerHTML = html_to_add;
+                        }
+                        async function call_api() {
+                            console.log("calling get_visitor_count method")
+                            let response = await fetch('https://4737wt8b07.execute-api.us-east-1.amazonaws.com/Prod');
+                            let myJson = response.json(); //extract JSON from the http response
+                            return myJson
+                        }
+                        function get_visitor_count() {
+                            let api_response_promise = call_api()
+                            console.log("got api data")
+                            api_response_promise.then(
+                                function(value) {display_visitor_count(value);}
+                            )
+                        }
+                    </script>
+
                     <div class="social-icons">
                         <a class="social-icon" href="https://linkedin.com/in/sahilkulk/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         <a class="social-icon" href="https://github.com/kulkarni-sahil/" target="_blank"><i class="fab fa-github"></i></a>
